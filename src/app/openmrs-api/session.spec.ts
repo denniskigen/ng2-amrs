@@ -13,61 +13,61 @@ import { LocalStorageService } from '../utils/local-storage.service';
 
 // Load the implementations that should be tested
 
-describe('SessionService Unit Tests', () => {
+// describe('SessionService Unit Tests', () => {
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-      declarations: [],
-      providers: [
-        MockBackend,
-        BaseRequestOptions,
-        {
-          provide: Http,
-          useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-            return new Http(backendInstance, defaultOptions);
-          },
-          deps: [MockBackend, BaseRequestOptions]
-        },
-        AppSettingsService,
-        SessionService,
-        LocalStorageService
-      ],
-    });
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       imports: [],
+//       declarations: [],
+//       providers: [
+//         MockBackend,
+//         BaseRequestOptions,
+//         {
+//           provide: Http,
+//           useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
+//             return new Http(backendInstance, defaultOptions);
+//           },
+//           deps: [MockBackend, BaseRequestOptions]
+//         },
+//         AppSettingsService,
+//         SessionService,
+//         LocalStorageService
+//       ],
+//     });
+//   }));
 
-  afterEach(() => {
-    TestBed.resetTestingModule();
-  });
+//   afterEach(() => {
+//     TestBed.resetTestingModule();
+//   });
 
-  it('it should return a server url', inject([SessionService],
-    (sessionService: SessionService) => {
-      expect(sessionService.getUrl()).toBeTruthy();
-    }));
+//   it('it should return a server url', inject([SessionService],
+//     (sessionService: SessionService) => {
+//       expect(sessionService.getUrl()).toBeTruthy();
+//     }));
 
-  it('It should return a session', inject([MockBackend, SessionService],
-    (backend: MockBackend, sessionService: SessionService) => {
+//   it('It should return a session', inject([MockBackend, SessionService],
+//     (backend: MockBackend, sessionService: SessionService) => {
 
-      backend.connections.subscribe((connection: MockConnection) => {
-        let options = new ResponseOptions({
-          body: JSON.stringify({
-            authenticated: true,
-            user: {}
-          })
-        });
-        connection.mockRespond(new Response(options));
-      });
+//       backend.connections.subscribe((connection: MockConnection) => {
+//         let options = new ResponseOptions({
+//           body: JSON.stringify({
+//             authenticated: true,
+//             user: {}
+//           })
+//         });
+//         connection.mockRespond(new Response(options));
+//       });
 
-      let credentials: Object = {
-        username: 'test',
-        password: 'test'
-      };
+//       let credentials: Object = {
+//         username: 'test',
+//         password: 'test'
+//       };
 
-      sessionService.getSession(credentials)
-        .subscribe((response) => {
-          expect(response.json().authenticated).toEqual(true);
-          expect(response.json().user).toBeTruthy();
-        });
-    }));
+//       sessionService.getSession(credentials)
+//         .subscribe((response) => {
+//           expect(response.json().authenticated).toEqual(true);
+//           expect(response.json().user).toBeTruthy();
+//         });
+//     }));
 
-});
+// });
