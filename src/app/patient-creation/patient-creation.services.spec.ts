@@ -43,20 +43,20 @@ describe('Service: PatientCreation', () => {
   });
 
   it('should create an instance', () => {
-    let service: PatientCreationService = TestBed.get(PatientCreationService);
+    const service: PatientCreationService = TestBed.get(PatientCreationService);
     expect(service).toBeTruthy();
   });
 
   it('should have all functions defined', () => {
-    let service: PatientCreationService = TestBed.get(PatientCreationService);
+    const service: PatientCreationService = TestBed.get(PatientCreationService);
     expect(service.checkRegexValidity).toBeDefined();
     expect(service.commonIdentifierTypes).toBeDefined();
     expect(service.getLuhnCheckDigit).toBeDefined();
   });
 
   it('should search for patients by search text', () => {
-    let service: PatientCreationService = TestBed.get(PatientCreationService);
-    let result = service.searchPatient('text', false);
+    const service: PatientCreationService = TestBed.get(PatientCreationService);
+    const result = service.searchPatient('text', false);
 
     result.subscribe((results) => {
       expect(results).toBeTruthy();

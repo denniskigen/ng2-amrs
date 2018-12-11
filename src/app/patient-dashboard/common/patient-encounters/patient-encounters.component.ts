@@ -20,11 +20,11 @@ export class PatientEncountersComponent implements OnInit, OnDestroy {
   public encounters: Encounter[];
   public selectedEncounter: Encounter;
   public onEncounterDetail: number;
-  public pretty: boolean = false;
+  public pretty = false;
   public messageType: string;
   public message: string;
   public isVisible: boolean;
-  public dataLoading: boolean = false;
+  public dataLoading = false;
   public patient: any;
   public errors: any = [];
   public encounterTypes: any = [];
@@ -59,6 +59,7 @@ export class PatientEncountersComponent implements OnInit, OnDestroy {
       .subscribe(
         (data) => {
           this.encounters = data;
+          console.log('ENCOUNTERS: ', this.encounters);
           this.isVisible = false;
           this.loadEncounterTypes(data);
           // a trick to wait for the encounter list to render
@@ -87,9 +88,9 @@ export class PatientEncountersComponent implements OnInit, OnDestroy {
   }
   public sortEncounterTpes() {
 
-       let newUniqueEncounterTypes = _.uniq(this.encounterTypes);
+       const newUniqueEncounterTypes = _.uniq(this.encounterTypes);
 
-       let sortByAlphOrder = _.sortBy(newUniqueEncounterTypes);
+       const sortByAlphOrder = _.sortBy(newUniqueEncounterTypes);
 
        this.encounterTypes = sortByAlphOrder;
 
@@ -136,6 +137,7 @@ export class PatientEncountersComponent implements OnInit, OnDestroy {
 
   public showPrettyEncounterViewer(encounter) {
     if (encounter) {
+      console.log('SHOWING PRETTY ENCOUNTER VIEWER, THIS IS THE TARGET METHOD');
       this.selectedEncounter = encounter;
       this.onEncounterDetail = Math.random();
       this.pretty = true;

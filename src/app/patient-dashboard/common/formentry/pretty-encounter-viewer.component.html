@@ -1,5 +1,10 @@
 <div *ngIf="form&&selectedEncounter&&!error" id="encounter">
-    <encounter-renderer [encounter]="selectedEncounter" [form]="form"></encounter-renderer>
+  <button (click)="printEncounter">
+    <span class="glyphicon glyphicon-print"></span>
+    Print
+  </button>
+  <encounter-renderer [encounter]="selectedEncounter" [form]="form"></encounter-renderer>
+  <pre>{{ selectedEncounter | json }}</pre>
 </div>
  
 <div *ngIf="error" class="text-center">

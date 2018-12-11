@@ -16,7 +16,7 @@ export class PrettyEncounterViewerComponent implements OnInit {
 
     public selectedEncounter: any;
     @Input() set encounter(encounter) {
-      if(encounter) {
+      if (encounter) {
         this.displayEncounterObs(encounter);
       }
     }
@@ -55,8 +55,9 @@ export class PrettyEncounterViewerComponent implements OnInit {
             this.formDataSourceService.getDataSources()['location']);
     }
     public displayEncounterObs(encounter) {
+        console.log('ENCOUNTER FROM PRETTY VIEWER: ', encounter);
         this.initializeLoader();
-        let encounterUuid = encounter.uuid;
+        const encounterUuid = encounter.uuid;
         if (this.selectedEncounter) {
             if (encounterUuid === this.selectedEncounter.uuid) { return; }
         }
@@ -77,11 +78,14 @@ export class PrettyEncounterViewerComponent implements OnInit {
                 }
             })).pipe(
             take(1)).subscribe((compiledSchema) => {
-                let unpopulatedform = this.formFactory.createForm(compiledSchema, this.dataSources);
+                console.log('Compiled Schema Pages: ', compiledSchema.pages);
+                // compiledSchema has the form fields - look under the pages key
+                const unpopulatedform = this.formFactory.createForm(compiledSchema, this.dataSources);
                 this.encounterAdapter.populateForm(unpopulatedform, this.selectedEncounter);
                 this.form = unpopulatedform;
                 this.showLoader = false;
                 this.error = false;
+                console.log(this.form);
             });
     }
 

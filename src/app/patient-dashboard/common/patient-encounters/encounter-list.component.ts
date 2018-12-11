@@ -1,7 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Encounter } from '../../../models/encounter.model';
 import { NgModel } from '@angular/forms';
 import { PatientEncounterProviderPipe } from './patient-encounter-provider.pipe';
+import { PatientEncounterPdfViewService } from './patient-encounter-pdf-view.service';
+import { EncounterResourceService } from 'src/app/openmrs-api/encounter-resource.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'encounter-list',
@@ -9,7 +12,8 @@ import { PatientEncounterProviderPipe } from './patient-encounter-provider.pipe'
 
 })
 export class EncounterListComponent implements OnInit {
-  @Input() public encountersLoading: boolean = false;
+  @ViewChild('patientEncounterPdf')
+  @Input() public encountersLoading = false;
   @Input() public encounters: Encounter[];
   @Input('messageType') public messageType: string;
   @Input('message') public message: string;
@@ -17,15 +21,28 @@ export class EncounterListComponent implements OnInit {
   @Output() public onEncounterEdit = new EventEmitter();
   @Output() public isBusy = new EventEmitter();
   @Output() public onShowPrettyEncounterViewer = new EventEmitter();
+  // @Output() public onPrint = new EventEmitter();
   @Output() public onEncounterObservations = new EventEmitter();
   @Input() public encounterTypes: any [];
-  @Input() public showPagination: boolean = true;
-  @Input() public showFilterers: boolean = true;
+  @Input() public showPagination = true;
+  @Input() public showFilterers = true;
   public selectedEncounterType: any = [];
   public encounterFilterTypeArray: any = [];
+  public sectionDefinitions: any[];
+  public selectedEncounter: any;
+  public data = [];
+  public pdfView: any;
+  public sectionsDef = [];
+  public isLoadingReport = false;
+  public showInfoMessage = false;
+  public errorMessage = '';
+  public statusError = false;
 
-  constructor() {
-  }
+
+  constructor(
+    private encounterResourceService: EncounterResourceService,
+    private patientEncounterPdfViewService: PatientEncounterPdfViewService
+  ) {}
 
   public ngOnInit() {
   }
@@ -44,6 +61,20 @@ export class EncounterListComponent implements OnInit {
   public showEncounterViewer(encounterObj) {
     this.isBusy.emit(true);
     this.onShowPrettyEncounterViewer.emit(encounterObj);
+  }
+
+  public printEncounter(encounter) {
+    this.generateReport(encounter);
+  }
+
+  public generateReport(encounter) {
+    // this.displayEncounterObs(encounter);
+    this.isLoadingReport = true;
+    this.showInfoMessage = false;
+    this.statusError = false;
+    if (this.pdfView && this.pdfView.generateReport) {
+      this.pdfView.generateReport();
+    }
   }
 
   public onEncounterTypeChange(selectedEncounterType) {
@@ -75,4 +106,22 @@ export class EncounterListComponent implements OnInit {
   public removeFilterItem(i) {
     this.encounterFilterTypeArray.splice(i, 1);
   }
+
+  // public displayEncounterObs(encounter) {
+  //   console.log('called...')
+  //   const encounterUuid = encounter.uuid;
+  //   if (this.selectedEncounter) {
+  //       if (encounterUuid === this.selectedEncounter.uuid) { return; }
+  //   }
+  //   this.selectedEncounter = encounter;
+  //   this.encounterResourceService.getEncounterByUuid(encounterUuid)
+  //       .pipe(
+  //       take(1)).subscribe((compiledSchema) => {
+  //           console.log('Compiled Schema Pages: ', compiledSchema.pages);
+  //           compiledSchema.pages.forEach((label) => {
+  //             this.sectionDefinitions.push(label);
+  //           });
+  //           console.log('Section definitions: ', this.sectionDefinitions);
+  //       });
+  // }
 }

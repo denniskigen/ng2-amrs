@@ -37,6 +37,8 @@ import { EncounterListComponent } from './patient-encounters/encounter-list.comp
 import {
   PatientEncounterObservationsComponent
 } from './patient-encounters/patient-encounter-observations.component';
+import { PatientEncounterPdfViewComponent } from './patient-encounters/patient-encounter-pdf-view.component';
+import { PatientEncounterPdfViewService } from './patient-encounters/patient-encounter-pdf-view.service';
 import { PatientService } from '../services/patient.service';
 import { PatientBannerComponent } from './patient-banner/patient-banner.component';
 import { LabSyncComponent } from './lab-data-summary/lab-sync.component';
@@ -230,6 +232,7 @@ import { GroupEnrollmentModule } from '../group-enrollment/group-enrollment.modu
     VisitSummaryComponent,
     PatientInfoComponent,
     PatientEncountersComponent,
+    PatientEncounterPdfViewComponent,
     PatientVitalsComponent,
     FormsComponent,
     LabDataSummaryComponent,
@@ -278,6 +281,7 @@ import { GroupEnrollmentModule } from '../group-enrollment/group-enrollment.modu
   providers: [
     FormUpdaterService,
     PatientEncounterService,
+    PatientEncounterPdfViewService,
     PatientSearchService,
     AppFeatureAnalytics,
     PatientService,

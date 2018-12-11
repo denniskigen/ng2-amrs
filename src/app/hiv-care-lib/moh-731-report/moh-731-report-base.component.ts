@@ -22,17 +22,17 @@ export class Moh731ReportBaseComponent implements OnInit {
   public sectionsDef = [];
   public statusError = false;
 
-  public showLocationsControl: boolean = false;
-  public showIsAggregateControl: boolean = false;
+  public showLocationsControl = false;
+  public showIsAggregateControl = false;
 
-  public showPatientList: boolean = false;
-  public showTabularView: boolean = true;
-  public showPatientListLoader: boolean = false;
-  public isLoadingReport: boolean = false;
-  public showInfoMessage: boolean = false;
-  public errorMessage: string = '';
-  public currentView: string = 'pdf'; // can be pdf or tabular or patientList
-  public currentIndicator: string = '';
+  public showPatientList = false;
+  public showTabularView = true;
+  public showPatientListLoader = false;
+  public isLoadingReport = false;
+  public showInfoMessage = false;
+  public errorMessage = '';
+  public currentView = 'pdf'; // can be pdf or tabular or patientList
+  public currentIndicator = '';
   private _startDate: Date = Moment().subtract(1, 'months').startOf('month').toDate();
   public get startDate(): Date {
     return this._startDate;
@@ -57,7 +57,7 @@ export class Moh731ReportBaseComponent implements OnInit {
   }
 
   public set locationUuids(v: Array<string>) {
-    let locationUuids = [];
+    const locationUuids = [];
     _.each( v , (location: any) => {
         if (location.value) {
            locationUuids.push(location);
@@ -75,7 +75,7 @@ export class Moh731ReportBaseComponent implements OnInit {
     this._patientListLocationUuids = v;
   }
 
-  private _isLegacyReport: boolean = false;
+  private _isLegacyReport = false;
   public get isLegacyReport(): boolean {
     return this._isLegacyReport;
   }
@@ -123,6 +123,7 @@ export class Moh731ReportBaseComponent implements OnInit {
             } else {
               this.sectionsDef = data.sectionDefinitions;
               this.data = data.result;
+              console.log('REPORT SECTION DATA: ', this.data);
                 // // simple way to avoid a report with dashes. If this columnm exists, the report is full
                 // if (data.result[0] && data.result[0]['current_in_care'] === undefined) {
                 //   this.showInfoMessage = true;
@@ -162,7 +163,7 @@ export class Moh731ReportBaseComponent implements OnInit {
       this.patientListLocationUuids.length > 0 && this.currentIndicator) {
       this.showTabularView = false;
       this.showPatientListLoader = true;
-      let params = {
+      const params = {
         startDate: this.toDateString(this.startDate),
         endDate: this.toDateString(this.endDate),
         locations: this.getSelectedLocations(this.patientListLocationUuids),

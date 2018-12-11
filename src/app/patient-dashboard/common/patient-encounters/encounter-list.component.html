@@ -39,7 +39,7 @@
           <th>Form</th>
           <th>Provider</th>
           <th> Provider Location</th>
-          <th colspan="2">Actions</th>
+          <th colspan="3">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -64,9 +64,23 @@
                             <span class="glyphicon text-primary glyphicon-eye-open"></span>
                         </a>
           </td>
+          <td>
+            <a *ngIf="(encounter && encounter.form && encounter.form.name && encounter.form.name.indexOf('POC') >= 0)" type="button" (click)="generateReport(encounter)">
+              <span class="glyphicon glyphicon-print"></span>
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
   <pagination-controls *ngIf="showPagination && encounters && encounters.length > 0" (pageChange)="page = $event" style="cursor: pointer;"></pagination-controls>
+</div>
+
+<!-- <div>
+  <h1>Patient Encounter report</h1>
+  <patient-encounter-pdf-view [encounter]="encounter" #patientEncounterPdf></patient-encounter-pdf-view>
+</div> -->
+
+<div>
+  <patient-encounter-pdf-view></patient-encounter-pdf-view>
 </div>

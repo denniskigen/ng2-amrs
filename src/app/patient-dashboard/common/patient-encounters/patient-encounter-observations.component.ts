@@ -29,14 +29,14 @@ export class PatientEncounterObservationsComponent implements OnInit, OnChanges 
     @ViewChild('modal')
     public modal: ModalComponent;
   @Input() public encounter: Encounter;
-  @Input() public set prettyView(val: boolean){
+  @Input() public set prettyView(val: boolean) {
     this.pretty = val;
   }
   @Input() public onEncounterDetail: boolean;
   @Output() public onClose = new EventEmitter();
   @Output() public isDone = new EventEmitter();
   @Output() public onDismiss = new EventEmitter();
-  public cssClass: string = 'obs-dialog';
+  public cssClass = 'obs-dialog';
 
   constructor(private encounterResource: EncounterResourceService) {
   }
@@ -60,12 +60,12 @@ export class PatientEncounterObservationsComponent implements OnInit, OnChanges 
       } else { this.showPlainObsView(this.selectedEncounter); }
     }
 
-    for (let propName in changes) {
+    for (const propName in changes) {
       if (propName !== 'encounter') {
         continue;
       }
-      let changedProp = changes[propName];
-      let encounter = changedProp.currentValue;
+      const changedProp = changes[propName];
+      const encounter = changedProp.currentValue;
       if (!changedProp.isFirstChange()) {
         this.isDone.emit(true);
         if (this.pretty) {
@@ -89,6 +89,7 @@ export class PatientEncounterObservationsComponent implements OnInit, OnChanges 
   }
   public showPrettyObsView(encounter) {
     this.selectedEncounter = encounter;
+    console.log('SELECTED ENCOUNTER: ', this.selectedEncounter);
     this.staticModal.show();
   }
   public updateOpenState(index: number) {
@@ -110,17 +111,17 @@ export class PatientEncounterObservationsComponent implements OnInit, OnChanges 
 
   public processEncounter(encounter: any) {
     const obs = encounter.obs;
-    let processedObs: any = [];
+    const processedObs: any = [];
     obs.sort((a, b) => {
-      let _a = a.concept.name.display.toUpperCase();
-      let _b = b.concept.name.display.toUpperCase();
+      const _a = a.concept.name.display.toUpperCase();
+      const _b = b.concept.name.display.toUpperCase();
       return (_a < _b) ? -1 : (_a > _b) ? 1 : 0;
     });
 
     _.each(obs, (v: any, i) => {
       this.isHidden[i] = true;
       let _value: any = _.isObject(v.value) ? v.value.display : v.value;
-      let _arrValue: Array<any> = [];
+      const _arrValue: Array<any> = [];
       if (_.isNil(_value) && !_.isNil(v.groupMembers)) {
         _.each(v.groupMembers, (group: any, index) => {
           _arrValue.push({label: group.concept.display.toUpperCase(),
@@ -135,6 +136,9 @@ export class PatientEncounterObservationsComponent implements OnInit, OnChanges 
       });
     });
     this.isDone.emit(false);
+
+    console.log('Processed obs: ', processedObs);
+    console.log('First processed obs: ', processedObs[0]);
     return processedObs;
   }
 
