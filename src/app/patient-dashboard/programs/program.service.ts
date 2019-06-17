@@ -1,24 +1,26 @@
 
 import { take, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+
+import * as _ from 'lodash';
 import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+
 import {
   ProgramEnrollmentResourceService
 } from '../../openmrs-api/program-enrollment-resource.service';
-
 import {
   ProgramResourceService
 } from '../../openmrs-api/program-resource.service';
 import { Program } from '../../models/program.model';
 import { ProgramEnrollment } from '../../models/program-enrollment.model';
-import * as _ from 'lodash';
 import {
   ProgramWorkFlowStateResourceService
 } from '../../openmrs-api/program-workflow-state-resource.service';
 import {
   ProgramWorkFlowResourceService
 } from '../../openmrs-api/program-workflow-resource.service';
-import { first } from 'rxjs/operators';
+
 @Injectable()
 export class ProgramService {
   constructor(private programEnrollmentResourceService: ProgramEnrollmentResourceService,
@@ -70,15 +72,15 @@ export class ProgramService {
     }
   }
 
-  public createEnrollmentPayload(program, patient, dateEnrolled, dateCompleted,
-    locationUuid, enrollmentUuid): any {
+  public createEnrollmentPayload(enrollmentUuid, dateCompleted, dateEnrolled, locationUuid,
+    patient, program): any {
     const payLoad = {
-      patient: patient.person.uuid,
-      program: program,
-      dateEnrolled: dateEnrolled,
       uuid: enrollmentUuid,
       dateCompleted: dateCompleted,
-      location: locationUuid
+      dateEnrolled: dateEnrolled,
+      location: locationUuid,
+      patient: patient.person.uuid,
+      program: program
     };
 
     // delete dateCompleted property  if the dateCompleted is null at enrollment
@@ -95,7 +97,7 @@ export class ProgramService {
       delete payLoad['patient'];
       delete payLoad['program'];
     }
-    // console.log('Program Enrollment Payload ', JSON.stringify(payLoad));
+    console.log('Program Enrollment Payload ', JSON.stringify(payLoad));
     return payLoad;
 
   }

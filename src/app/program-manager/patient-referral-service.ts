@@ -29,12 +29,12 @@ export class PatientReferralService {
 
   public createUpdatePatientEnrollment(payload) {
     const enrollPayload = this.programService.createEnrollmentPayload(
-      payload.programUuid,
-      payload.patient,
-      payload.dateEnrolled || this.toOpenmrsDateFormat(new Date()),
+      payload.enrollmentUuid,
       payload.dateCompleted ? payload.dateCompleted : null,
+      payload.dateEnrolled || this.toOpenmrsDateFormat(new Date()),
       payload.location,
-      payload.enrollmentUuid);
+      payload.patient,
+      payload.programUuid);
     return this.programService.saveUpdateProgramEnrollment(enrollPayload);
   }
 

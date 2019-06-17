@@ -31,6 +31,7 @@ export class ProgramManagerService {
   }
 
   public referPatient(payload) {
+    console.log('ProgramManagerService referPatient called with: ', payload);
     const encounter: any = _.first(payload.submittedEncounter);
     _.extend(payload, {
       notificationStatus: null,
@@ -38,13 +39,14 @@ export class ProgramManagerService {
       state: null
     });
     if (encounter) {
+      console.log('Encounter: ', encounter);
       _.extend(payload, {encounter: encounter.uuid});
       this.handleReferralWithEncounter(payload);
     } else {
       this.handleReferralWithProvider(payload);
     }
-    localStorage.removeItem('referralLocation');
-    localStorage.removeItem('referralVisitEncounter');
+    // localStorage.removeItem('referralLocation');
+    // localStorage.removeItem('referralVisitEncounter');
     return this.referralCompleteStatus;
   }
 
@@ -90,6 +92,7 @@ export class ProgramManagerService {
   }
 
   private handleReferralWithEncounter(payload: any): void {
+    console.log('handleReferralWithEncounter called with: ', payload);
     this.patientReferralService.getEncounterProvider(payload.encounter)
       .subscribe((provider) => {
         if (provider) {
@@ -101,6 +104,7 @@ export class ProgramManagerService {
 
   private enrollPatientInReferredProgram(programInfo) {
     // 1. Enroll patient
+    console.log('ProgramManagerService enrollPatientInReferredProgram called with: ', programInfo);
     this.patientReferralService.createUpdatePatientEnrollment({
       programUuid: programInfo.programUuid,
       patient: programInfo.patient,
@@ -118,6 +122,7 @@ export class ProgramManagerService {
 
       },
       (error) => {
+        console.log('Error enrolling patient in referred program');
         this.handleError(error);
       });
   }

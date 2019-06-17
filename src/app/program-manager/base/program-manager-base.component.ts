@@ -108,7 +108,7 @@ export class ProgramManagerBaseComponent implements OnInit {
       }, (err) => {
       this.loaded = true;
       programConfigLoaded.error(err);
-      });
+    });
 
     return programConfigLoaded;
   }

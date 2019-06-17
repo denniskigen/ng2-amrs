@@ -4,6 +4,8 @@ import * as _ from 'lodash';
 
 import { DepartmentProgramsConfigService } from '../../etl-api/department-programs-config.service';
 import { LocalStorageService } from '../../utils/local-storage.service';
+import { LocationResourceService } from '../../openmrs-api/location-resource.service';
+import { ProgramResourceService } from '../../openmrs-api/program-resource.service';
 
 @Component({
   selector: 'program-referral-status',
@@ -12,25 +14,37 @@ import { LocalStorageService } from '../../utils/local-storage.service';
 })
 export class ProgramReferralStatusComponent implements OnInit {
   public department: string;
+  public referralLocation: string;
+  public selectedProgram: string;
+
   @Input()
   public set status(data: any) {
-    if (data) {
+    // if (data) {
       this._status = data;
-      this.saveReferralData();
-    } else {
-      this.removeReferralData();
-    }
+      // this.saveReferralData();
+    // } else {
+      // this.removeReferralData();
+    // }
   }
 
   public get status(): any {
     return this._status;
   }
+
   private _status: any;
-  constructor(private departmentProgramService: DepartmentProgramsConfigService,
-    private localStorageService: LocalStorageService) {
-  }
+
+  constructor(
+    private departmentProgramService: DepartmentProgramsConfigService,
+    private localStorageService: LocalStorageService,
+    private locationResourceService: LocationResourceService,
+    private programResourceService: ProgramResourceService) { }
 
   public ngOnInit() {
+    if (this._status) {
+      this.saveReferralData();
+    } else {
+      this.removeReferralData();
+    }
   }
 
   private saveReferralData() {
@@ -38,6 +52,8 @@ export class ProgramReferralStatusComponent implements OnInit {
       this.departmentProgramService.getDartmentProgramsConfig()
         .subscribe((results) => {
           if (results) {
+            this.getSelectedProgram();
+            this.getReferralLocation();
             this.saveProgramAndDepartment(results);
           }
         });
@@ -48,10 +64,37 @@ export class ProgramReferralStatusComponent implements OnInit {
     this.localStorageService.remove('pm-data');
   }
 
+  private getSelectedProgram() {
+    let programUuid;
+    if (_.has(this.status.selectedProgram, 'programUuid')) {
+      programUuid = this.status.selectedProgram.programUuid;
+    } else {
+      programUuid = this.status.selectedProgram;
+    }
+    this.programResourceService.getProgramByUuid(programUuid).subscribe(
+      (program: any) => {
+        console.log('Program inside subscription: ', program);
+        this.selectedProgram = program.name;
+      }, (error) => { console.error('Could not get the program name: ', error); }
+    );
+  }
+
+  private getReferralLocation() {
+    const referralLocationUuid = this.status.referralLocation;
+    if (referralLocationUuid) {
+      this.locationResourceService.getLocationByUuid(referralLocationUuid).subscribe(
+        (result) => { this.referralLocation = result.display; },
+        (error) => { console.error('Could not get referral location name: ', error); }
+      );
+    }
+  }
+
   private saveProgramAndDepartment(departmentConfig) {
+    const programUuidToSave = _.has(this.status.selectedProgram, 'programUuid') ?
+    this.status.selectedProgram.programUuid : this.status.selectedProgram;
     _.each(departmentConfig, (config: any) => {
       const departmentProgram = _.find(config.programs, (program) => {
-        return program && program.uuid === this.status.selectedProgram.programUuid;
+        return program && program.uuid === programUuidToSave;
       });
       if (departmentProgram) {
         const currentPmData = this.localStorageService.getObject('pm-data') || {};

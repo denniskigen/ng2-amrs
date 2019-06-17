@@ -59,7 +59,7 @@ export class OncologyReferralStatusComponent implements OnInit {
   }
 
   private getReferralLocation() {
-    const referralLocationUuid = this.localStorageService.getItem('referralLocation');
+    const referralLocationUuid = this.status.referralLocation;
     if (referralLocationUuid) {
       this.locationResourceService.getLocationByUuid(referralLocationUuid).subscribe(
         (result) => { this.referralLocation = result.display; },

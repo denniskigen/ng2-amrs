@@ -1,4 +1,3 @@
-
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -13,8 +12,7 @@ export class ProgramEnrollmentResourceService {
 
   private $unenrolledFromProgramEvent: Subject<any> = new Subject();
 
-  constructor(protected http: HttpClient, protected appSettingsService: AppSettingsService) {
-  }
+  constructor(protected http: HttpClient, protected appSettingsService: AppSettingsService) { }
 
   public getUrl(): string {
 
