@@ -16,7 +16,7 @@ import { UserService } from '../openmrs-api/user.service';
 import { AppState } from '../app.service';
 import { CohortResourceService } from '../openmrs-api/cohort-resource.service';
 import { CohortMemberResourceService } from '../openmrs-api/cohort-member-resource.service';
-import { MOTDNotificationComponent } from './../Motd/motd-notification.component';
+import { MOTDNotificationComponent } from './../motd/motd-notification.component';
 import { MOTDNotificationService } from './../etl-api/motd.notification.service';
 import { CookieService } from 'ngx-cookie';
 import { DataAnalyticsModule } from '../data-analytics-dashboard/data-analytics.module';

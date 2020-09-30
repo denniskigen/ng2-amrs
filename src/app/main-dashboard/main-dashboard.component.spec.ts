@@ -12,7 +12,7 @@ import { AppState } from '../app.service';
 import { RoutesProviderService } from '../shared/dynamic-route/route-config-provider.service';
 import { of } from 'rxjs';
 import { StaticNavBarComponent, SideNavigationComponent } from '../navigation';
-import { MOTDNotificationComponent } from '../Motd/motd-notification.component';
+import { MOTDNotificationComponent } from '../motd/motd-notification.component';
 import { NgamrsSharedModule } from '../shared/ngamrs-shared.module';
 import { MatSidenavModule } from '@angular/material';
 import { MainDashboardModule } from './main-dashboard.module';
