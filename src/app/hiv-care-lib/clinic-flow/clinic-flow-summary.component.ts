@@ -1,19 +1,14 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input,
-  SimpleChange,
-  EventEmitter
-} from '@angular/core';
-import { Injectable, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import * as Moment from 'moment';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import * as _ from 'lodash';
+
 import { ClinicFlowResource } from '../../etl-api/clinic-flow-resource-interface';
 import { ClinicFlowCacheService } from './clinic-flow-cache.service';
-import { Router } from '@angular/router';
-import * as _ from 'lodash';
+
 @Component({
   selector: 'clinic-flow-summary',
   templateUrl: './clinic-flow-summary.component.html'
@@ -72,7 +67,7 @@ export class ClinicFlowSummaryComponent implements OnInit, OnDestroy {
     if (result === null) {
       throw new Error('Null clinic flow observable');
     } else {
-      result.take(1).subscribe(
+      result.pipe(take(1)).subscribe(
         (data) => {
           if (data && data.result.length > 0) {
             const formatted = this.clinicFlowCacheService.formatData(

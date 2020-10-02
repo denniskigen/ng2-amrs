@@ -20,7 +20,7 @@ import {
 import { AgGridModule } from 'ag-grid-angular/main';
 import { DateTimePickerModule } from 'ngx-openmrs-formentry/';
 import { CalendarModule } from 'angular-calendar';
-import { ChartModule } from 'angular2-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { Moh731ReportComponent } from './moh-731/moh-731-report.component';
 import { clinicDashboardHivRouting } from './hiv-program.routes';
 import { HivCareLibModule } from '../../hiv-care-lib/hiv-care-lib.module';
@@ -95,7 +95,7 @@ import { HIVListsMicroFrontendComponent } from './hiv-lists-microfrontend-report
     ButtonModule,
     GrowlModule,
     AccordionModule,
-    ChartModule,
+    HighchartsChartModule,
     ProgramVisitEncounterSearchModule,
     ClinicScheduleLibModule,
     DepartmentProgramFilterModule,

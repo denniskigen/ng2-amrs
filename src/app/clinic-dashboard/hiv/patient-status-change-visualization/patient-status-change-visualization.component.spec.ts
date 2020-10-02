@@ -1,13 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  TestBed,
-  async,
-  inject,
-  ComponentFixture
-} from '@angular/core/testing';
-import { ChartModule } from 'angular2-highcharts';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { NgamrsSharedModule } from '../../../shared/ngamrs-shared.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { PatientStatusChangeVisualizationComponent } from './patient-status-change-visualization.component';
 import { PatientStatuChangeVisualizationService } from './patient-status-change-visualization.service';
 import { DashboardFiltersComponent } from '../../dashboard-filters/dashboard-filters.component';
@@ -19,9 +13,6 @@ import { DateRangeComponent } from '../../dashboard-filters/date-range/date-rang
 import { RangeSliderComponent } from '../../dashboard-filters/range-slider/range-slider.component';
 import { DateTimePickerModule } from 'ngx-openmrs-formentry';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
-import { highchartsFactory } from '../../clinic-dashboard.module';
-// jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
 
 describe('MonthlyScheduleComponent', () => {
   let fixture: ComponentFixture<PatientStatusChangeVisualizationComponent>;
@@ -30,8 +21,8 @@ describe('MonthlyScheduleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ChartModule,
         AgGridModule,
+        HighchartsChartModule,
         MatSlideToggleModule,
         FormsModule,
         NgamrsSharedModule,
@@ -48,11 +39,7 @@ describe('MonthlyScheduleComponent', () => {
       ],
       providers: [
         PatientStatusChangeVisualizationComponent,
-        PatientStatuChangeVisualizationService,
-        {
-          provide: HighchartsStatic,
-          useFactory: highchartsFactory
-        }
+        PatientStatuChangeVisualizationService
       ]
     })
       .compileComponents()

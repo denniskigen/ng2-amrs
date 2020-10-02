@@ -1,43 +1,22 @@
 /* tslint:disable:no-unused-variable */
-
 import { TestBed, async } from '@angular/core/testing';
 import { ClinicFlowComponent } from './clinic-flow.component';
 import { ClinicFlowCacheService } from '../clinic-flow/clinic-flow-cache.service';
 
-import { NgBusyModule, BusyConfig } from 'ng-busy';
+import { NgBusyModule } from 'ng-busy';
 import {
   Router,
   ActivatedRoute,
-  Params,
   RouterModule,
   ChildrenOutletContexts
 } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {
-  AccordionModule,
-  DataTableModule,
-  SharedModule,
-  TabViewModule,
-  GrowlModule,
-  PanelModule,
-  ConfirmDialogModule,
-  ConfirmationService,
-  DialogModule,
-  InputTextModule,
-  MessagesModule,
-  InputTextareaModule,
-  DropdownModule,
-  ButtonModule,
-  CalendarModule,
-  ChartModule
-} from 'primeng/primeng';
+import { DialogModule, CalendarModule, ChartModule } from 'primeng/primeng';
 import { CacheService } from 'ionic-cache';
 import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 import { MatTabsModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { Angulartics2Module } from 'angulartics2';
-import * as Moment from 'moment';
-import { FakeClinicDashboardCacheService } from 'src/app/clinic-dashboard/dashboard-filters/dashboard-filters.component.spec';
 import { ClinicFlowResource } from 'src/app/etl-api/clinic-flow-resource-interface';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ClinicDashboardCacheService } from 'src/app/clinic-dashboard/services/clinic-dashboard-cache.service';
@@ -55,9 +34,9 @@ import { ClinicFlowVisitsComponent } from './clinic-flow-visits.component';
 import { ClinicFlowLocationStatsComponent } from './clinic-flow-location-stats.component';
 import { ClinicFlowProviderStatsComponent } from './clinic-flow-provider-stats.component';
 import { ClinicFlowHourlyStatsVizComponent } from './clinic-flow-hourly-stats-viz.component';
-import { ChartComponent } from 'angular2-highcharts';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 class MockActivatedRoute {
   public params = Observable.of([{ id: 1 }]);
@@ -118,8 +97,7 @@ describe('Component: ClinicFlowComponent', () => {
         ClinicFlowVisitsComponent,
         ClinicFlowLocationStatsComponent,
         ClinicFlowProviderStatsComponent,
-        ClinicFlowHourlyStatsVizComponent,
-        ChartComponent
+        ClinicFlowHourlyStatsVizComponent
       ],
       imports: [
         NgBusyModule,
@@ -135,7 +113,8 @@ describe('Component: ClinicFlowComponent', () => {
         HttpClientTestingModule,
         ChartModule,
         Angulartics2Module,
-        RouterModule
+        RouterModule,
+        HighchartsChartModule
       ]
     });
   });

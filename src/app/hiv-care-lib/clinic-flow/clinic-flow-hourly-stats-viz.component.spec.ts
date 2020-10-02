@@ -3,15 +3,10 @@
  * More info: https://angular.io/docs/ts/latest/guide/testing.html#!#simple-component-test
  */
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
-import { ChartModule } from 'angular2-highcharts';
-
 import { ClinicFlowHourlyStatsVizComponent } from './clinic-flow-hourly-stats-viz.component';
 import { NgamrsSharedModule } from '../../shared/ngamrs-shared.module';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 describe('ClinicFlowHourlyStatsVizComponent:', () => {
   let fixture: ComponentFixture<ClinicFlowHourlyStatsVizComponent>;
@@ -82,10 +77,9 @@ describe('ClinicFlowHourlyStatsVizComponent:', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [NgamrsSharedModule, HighchartsChartModule],
       declarations: [ClinicFlowHourlyStatsVizComponent],
-      providers: [],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [ChartModule.forRoot(require('highcharts')), NgamrsSharedModule]
+      providers: []
     });
   });
 

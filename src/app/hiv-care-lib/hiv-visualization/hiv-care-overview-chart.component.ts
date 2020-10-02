@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { ClinicalSummaryVisualizationService } from '../services/clinical-summary-visualization.service';
-const highcharts = require('highcharts');
+import * as Highcharts from 'highcharts';
 import * as Moment from 'moment';
 @Component({
   selector: 'hiv-care-overview-chart',
@@ -15,6 +15,7 @@ export class HivCareComparativeChartComponent implements OnInit {
   public indicatorDef: Array<any> = [];
   public showHivCareTabularView = true;
   public showIndicatorDefinitions = false;
+  public Highcharts: typeof Highcharts = Highcharts;
   private xAxisCategories: Array<any> = [];
   private patientsInCare: Array<any> = [];
   private patientsOnArt: Array<any> = [];
@@ -144,14 +145,14 @@ export class HivCareComparativeChartComponent implements OnInit {
           labels: {
             format: '{value}',
             style: {
-              color: highcharts.getOptions().colors[0]
+              color: Highcharts.getOptions().colors[0]
             }
           },
           tickInterval: 100,
           title: {
             text: 'Number Of Patients',
             style: {
-              color: highcharts.getOptions().colors[0]
+              color: Highcharts.getOptions().colors[0]
             }
           }
         },
@@ -162,7 +163,7 @@ export class HivCareComparativeChartComponent implements OnInit {
             rotation: -90,
             padding: 10,
             style: {
-              color: highcharts.getOptions().colors[1]
+              color: Highcharts.getOptions().colors[1]
             }
           },
           tickInterval: 10,
@@ -171,7 +172,7 @@ export class HivCareComparativeChartComponent implements OnInit {
           labels: {
             format: '{value}',
             style: {
-              color: highcharts.getOptions().colors[1]
+              color: Highcharts.getOptions().colors[1]
             }
           },
           opposite: true

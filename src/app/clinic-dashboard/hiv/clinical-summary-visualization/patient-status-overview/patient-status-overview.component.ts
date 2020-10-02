@@ -9,6 +9,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import * as _ from 'lodash';
+import * as Highcharts from 'highcharts';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClinicalSummaryVisualizationResourceService } from '../../../../etl-api/clinical-summary-visualization-resource.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -25,6 +26,7 @@ export class PatientStatusOverviewComponent
   @Input() public data: any;
   @Input() public indicatorDef: any;
   public loadingPatientStatus = false;
+  public Highcharts: typeof Highcharts = Highcharts;
   private patientStatusData: any;
   private startDate: any;
   private endDate: any;
@@ -58,6 +60,7 @@ export class PatientStatusOverviewComponent
   get options() {
     return this._data.getValue();
   }
+
   public ngOnInit() {
     if (this._data) {
       this._data.subscribe((x) => {
@@ -79,6 +82,7 @@ export class PatientStatusOverviewComponent
       });
     }
   }
+
   public ngAfterViewInit(): void {
     this.changeDetectionRef.detectChanges();
   }
@@ -116,6 +120,7 @@ export class PatientStatusOverviewComponent
         }
       );
   }
+
   public generatePatientStatusOverviewChart(result) {
     const startDate = Moment(this.startDate).format('DD/MM/YYYY');
     const endDate = Moment(this.endDate).format('DD/MM/YYYY');
@@ -230,6 +235,7 @@ export class PatientStatusOverviewComponent
       ]
     };
   }
+
   public generatePatientList(point) {
     const startDate = Moment(this.startDate).format('DD/MM/YYYY');
     const endDate = Moment(this.endDate).format('DD/MM/YYYY');

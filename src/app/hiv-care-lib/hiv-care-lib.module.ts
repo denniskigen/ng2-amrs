@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AgGridModule } from 'ag-grid-angular/main';
-import { ChartModule } from 'angular2-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 import { DataListsModule } from '../shared/data-lists/data-lists.module';
 import {
   AccordionModule,
@@ -63,7 +64,6 @@ import { HeiIndicatorsFilterComponent } from './hei-indicators-report/hei-indica
 import { HeiIndicatorsTabularComponent } from './hei-indicators-report/hei-indicators-tabular-component';
 import { HeiIndicatorsPatientListComponent } from './hei-indicators-report/hei-indicators-patient-list.component';
 import { HeiIndicatorsPdfViewComponent } from './hei-indicators-report/hei-indicators-pdf-view.component';
-import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { SurgeReportTabularComponent } from './surge-report/surge-report-tabular.component';
 import { SurgeReportBaseComponent } from './surge-report/surge-report-base.component';
 import { SurgeReportPatientListComponent } from './surge-report/surge-report-patient-list.component';
@@ -122,7 +122,7 @@ import { MonthlyReportComponent } from './monthly-report/monthly-report.componen
     DropdownModule,
     ButtonModule,
     CalendarModule,
-    ChartModule,
+    HighchartsChartModule,
     ReportingUtilitiesModule,
     DataListsModule,
     NgxMyDatePickerModule.forRoot()
@@ -229,11 +229,7 @@ import { MonthlyReportComponent } from './monthly-report/monthly-report.componen
     ClinicalSummaryVisualizationService,
     RetentionReportResourceService,
     CaseManagementResourceService,
-    ProgramWorkFlowResourceService,
-    {
-      provide: HighchartsStatic,
-      useFactory: highchartsFactory
-    }
+    ProgramWorkFlowResourceService
   ]
 })
 export class HivCareLibModule {}

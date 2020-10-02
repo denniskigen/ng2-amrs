@@ -22,6 +22,7 @@ import { AgGridNg2 } from 'ag-grid-angular';
 import { Subscription } from 'rxjs';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import * as moment from 'moment/moment';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'patient-status-change-visualization',
@@ -49,7 +50,7 @@ export class PatientStatusChangeVisualizationComponent
   @ViewChild('agGrid')
   public agGrid: AgGridNg2;
   @Output() public filterModelChange = new EventEmitter<any>();
-
+  public Highcharts: typeof Highcharts = Highcharts;
   public filterModel: any;
   public startDate: Date = new Date();
   public endDate: Date = new Date();
@@ -90,9 +91,11 @@ export class PatientStatusChangeVisualizationComponent
       this.timerSubscription.unsubscribe();
     }
   }
+
   public ngAfterViewChecked() {
     this.cdr.detectChanges();
   }
+
   public ngAfterViewInit() {
     this.renderView();
   }

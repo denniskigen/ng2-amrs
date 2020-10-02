@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'clinic-flow-hourly-viz',
@@ -10,6 +11,7 @@ import * as moment from 'moment';
 })
 export class ClinicFlowHourlyStatsVizComponent implements OnInit {
   public graphOptions: any;
+  public Highcharts: typeof Highcharts = Highcharts;
 
   private _data: Array<any>;
   @Input()

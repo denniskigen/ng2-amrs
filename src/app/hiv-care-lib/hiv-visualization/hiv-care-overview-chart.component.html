@@ -1,7 +1,15 @@
 <div>
   <div>
     <hr />
-    <chart *ngIf="options" [options]="options" (redraw)="renderChart()"></chart>
+    <highcharts-chart
+      *ngIf="options"
+      [Highcharts]="Highcharts"
+      [options]="options"
+      (redraw)="renderChart()"
+      style="width: 100%; display: block"
+    >
+    </highcharts-chart>
+
     <div *ngIf="showHivCareTabularView">
       <hr />
       <hiv-care-tabularview [data]="data"></hiv-care-tabularview>

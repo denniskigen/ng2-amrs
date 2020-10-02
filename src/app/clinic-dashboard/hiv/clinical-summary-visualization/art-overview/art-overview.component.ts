@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as _ from 'lodash';
+import * as Highcharts from 'highcharts';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicalSummaryVisualizationService } from '../../../../hiv-care-lib/services/clinical-summary-visualization.service';
 
@@ -13,6 +14,7 @@ import { ClinicalSummaryVisualizationService } from '../../../../hiv-care-lib/se
 export class ArtOverviewComponent implements OnInit {
   public indicatorDef: Array<any> = [];
   public totalPatients: number;
+  public Highcharts: typeof Highcharts = Highcharts;
   private categories: Array<any> = [];
   private series: Array<any> = [];
   private _options = new BehaviorSubject<any>(null);

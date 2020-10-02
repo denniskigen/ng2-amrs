@@ -3,9 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
-import { ChartModule } from 'angular2-highcharts';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { CalendarModule } from 'angular-calendar';
-import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { MatTabsModule, MatSlideToggleModule } from '@angular/material';
 import { NgamrsSharedModule } from '../shared/ngamrs-shared.module';
 import { OpenmrsApi } from '../openmrs-api/openmrs-api.module';
@@ -68,7 +67,7 @@ import { ClinicRoutesFactory } from '../navigation/side-navigation/clinic-side-n
     EtlApi,
     Angulartics2Module,
     NgamrsSharedModule,
-    ChartModule,
+    HighchartsChartModule,
     CalendarModule.forRoot(),
     MatTabsModule,
     RouterModule.forChild(routes),
@@ -106,10 +105,6 @@ import { ClinicRoutesFactory } from '../navigation/side-navigation/clinic-side-n
     ClinicDashboardCacheService,
     ClinicDashboardGuard,
     ClinicFlowCacheService,
-    {
-      provide: HighchartsStatic,
-      useFactory: highchartsFactory
-    },
     HivClinicFlowResourceService,
     {
       provide: 'ClinicFlowResource',

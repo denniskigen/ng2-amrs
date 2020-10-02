@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { ChartModule } from 'angular2-highcharts';
 
 import { ClinicFlowSummaryComponent } from './clinic-flow-summary.component';
 import { ClinicFlowHourlyStatsVizComponent } from './clinic-flow-hourly-stats-viz.component';
@@ -12,33 +11,11 @@ import { AppFeatureAnalytics } from '../../shared/app-analytics/app-feature-anal
 import { FakeAppFeatureAnalytics } from '../../shared/app-analytics/app-feature-analytcis.mock';
 import { AppSettingsService } from '../../app-settings/app-settings.service';
 import { LocalStorageService } from '../../utils/local-storage.service';
-import { NgBusyModule, BusyConfig } from 'ng-busy';
-import {
-  Router,
-  ActivatedRoute,
-  Params,
-  RouterModule,
-  ChildrenOutletContexts
-} from '@angular/router';
+import { NgBusyModule } from 'ng-busy';
+import { Router, RouterModule, ChildrenOutletContexts } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DataListsModule } from '../../shared/data-lists/data-lists.module';
-import {
-  AccordionModule,
-  DataTableModule,
-  SharedModule,
-  TabViewModule,
-  GrowlModule,
-  PanelModule,
-  ConfirmDialogModule,
-  ConfirmationService,
-  DialogModule,
-  InputTextModule,
-  MessagesModule,
-  InputTextareaModule,
-  DropdownModule,
-  ButtonModule,
-  CalendarModule
-} from 'primeng/primeng';
+import { DialogModule, CalendarModule } from 'primeng/primeng';
 import { CacheService } from 'ionic-cache';
 import { DataCacheService } from '../../shared/services/data-cache.service';
 import { NgamrsSharedModule } from '../../shared/ngamrs-shared.module';
@@ -50,9 +27,9 @@ import { ClinicFlowResource } from '../../etl-api/clinic-flow-resource-interface
 
 import * as Moment from 'moment';
 import { HivClinicFlowResourceService } from '../../etl-api/hiv-clinic-flow-resource.service';
-import { Observable } from 'rxjs';
 import { MockHivClinicFlowResourceService } from '../../etl-api/hiv-clinic-flow-resource.service.mock';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 describe('Component: ClinicFlowSummaryComponent', () => {
   let component,
@@ -104,7 +81,6 @@ describe('Component: ClinicFlowSummaryComponent', () => {
       imports: [
         NgBusyModule,
         HttpClientTestingModule,
-        ChartModule.forRoot(require('highcharts')),
         FormsModule,
         DialogModule,
         CalendarModule,
@@ -114,7 +90,8 @@ describe('Component: ClinicFlowSummaryComponent', () => {
         MatTabsModule,
         CommonModule,
         Angulartics2Module,
-        RouterModule
+        RouterModule,
+        HighchartsChartModule
       ]
     });
   });

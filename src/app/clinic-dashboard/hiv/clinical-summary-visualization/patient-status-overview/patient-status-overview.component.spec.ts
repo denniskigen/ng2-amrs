@@ -8,7 +8,7 @@ import {
   ComponentFixture,
   tick
 } from '@angular/core/testing';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of as observableOf, throwError } from 'rxjs';
 import { ClinicDashboardCacheService } from '../../../services/clinic-dashboard-cache.service';
 import { ClinicalSummaryVisualizationResourceService } from '../../../../etl-api/clinical-summary-visualization-resource.service';
 import { PatientStatusOverviewComponent } from './patient-status-overview.component';
@@ -19,18 +19,19 @@ import {
   GrowlModule,
   AccordionModule
 } from 'primeng/primeng';
-import { ChartModule } from 'angular2-highcharts';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PatientStatusIndicatorDefComponent } from './indicator-definition.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 class DataStub {
   public getPatientCareStatusReport(payload): Observable<any> {
-    return Observable.of({ status: 'okay' });
+    return observableOf({ status: 'okay' });
   }
 }
 class ClinicDashboardCacheServiceStub {
   public getCurrentClinic() {
-    return Observable.of('');
+    return observableOf('');
   }
 }
 
@@ -70,7 +71,7 @@ describe('PatientStatusOverviewComponent', () => {
         GrowlModule,
         HttpClientTestingModule,
         AccordionModule,
-        ChartModule.forRoot(require('highcharts'))
+        HighchartsChartModule
       ],
       declarations: [
         PatientStatusOverviewComponent,
@@ -91,7 +92,7 @@ describe('PatientStatusOverviewComponent', () => {
             { provide: Router, useValue: mockRouter },
             {
               provide: ActivatedRoute,
-              useValue: { parent: { params: Observable.of({ id: 'testId' }) } }
+              useValue: { parent: { params: observableOf({ id: 'testId' }) } }
             }
           ]
         }
@@ -116,7 +117,7 @@ describe('PatientStatusOverviewComponent', () => {
 
   it('should hit the success callback when getPatientCareStatusReport returns success', (done) => {
     const spy = spyOn(dataStub, 'getPatientCareStatusReport').and.returnValue(
-      Observable.of(expectedResults)
+      observableOf(expectedResults)
     );
     comp.getPatientStatusOverviewData();
     fixture.detectChanges();

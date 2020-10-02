@@ -47,7 +47,8 @@
 </div>
 <div [hidden]="renderType === 'cohortAnalysis'">
   <hr />
-  <chart [options]="chartOptions"> </chart>
+  <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions">
+  </highcharts-chart>
 </div>
 <hr />
 <div>

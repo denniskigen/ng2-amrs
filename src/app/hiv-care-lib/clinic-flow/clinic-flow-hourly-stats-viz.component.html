@@ -1,1 +1,5 @@
-<chart [options]="graphOptions"></chart>
+<highcharts-chart
+  *ngIf="graphOptions"
+  [Highcharts]="Highcharts"
+  [options]="graphOptions"
+></highcharts-chart>
