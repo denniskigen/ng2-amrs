@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { concat, Observable, of, throwError } from 'rxjs';
-import { flatMap, retryWhen, take } from 'rxjs/operators';
+import { flatMap, mergeMap, retryWhen, take } from 'rxjs/operators';
 import { AppSettingsService } from '../app-settings/app-settings.service';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class PatientProgramResourceService {
     return this.http.get(url).pipe(
       retryWhen((error) => {
         return error.pipe(
-          flatMap((err: any) => {
+          mergeMap((err: any) => {
             if (err.status === 403) {
               return of(err.status);
             }

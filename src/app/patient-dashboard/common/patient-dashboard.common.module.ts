@@ -21,7 +21,7 @@ import {
   ButtonModule,
   CalendarModule
 } from 'primeng/primeng';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalModule } from 'ng2-bs3-modal';
 import { Angulartics2Module } from 'angulartics2';
 import { FormEntryModule } from 'ngx-openmrs-formentry';
 import { AgGridModule } from 'ag-grid-angular/main';
@@ -150,7 +150,7 @@ import { OvcSnapshotComponent } from './ovc-snapshot/ovc-snapshot.component';
     ButtonModule,
     CalendarModule,
     NgamrsSharedModule,
-    Ng2Bs3ModalModule,
+    BsModalModule,
     OpenmrsApi,
     UtilsModule,
     TabViewModule,

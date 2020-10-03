@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observer, Observable, ReplaySubject } from 'rxjs';
 import { concat, first } from 'rxjs/operators';
 
 import { FormsResourceService } from '../../../openmrs-api/forms-resource.service';
@@ -145,7 +145,7 @@ export class FormSchemaService {
 
     // now get schemaReferences sequentially
     const schemaReferences: any = [];
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       const current = 0;
       const max = observableBatch.length;
 
@@ -176,7 +176,7 @@ export class FormSchemaService {
   }
 
   private fetchFormSchemaUsingFormMetadata(formUuid: string): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       return this.formsResourceService
         .getFormMetaDataByUuid(formUuid)
         .subscribe(

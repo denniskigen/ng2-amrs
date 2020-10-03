@@ -2,7 +2,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { throwError as observableThrowError, Observable, Subject } from 'rxjs';
-import { catchError, map, flatMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { AppSettingsService } from '../app-settings/app-settings.service';
 
 // TODO inject service
@@ -86,7 +86,7 @@ export class ProgramEnrollmentResourceService {
     const locationChange = 'location';
     if ((payload['dateCompleted'] && change !== locationChange) || !change) {
       return this.http.post(url, JSON.stringify(payload), { headers }).pipe(
-        flatMap((program) => {
+        mergeMap((program) => {
           this.broadcastUnenrolledProgram(program);
           return Observable.of(program);
         }),

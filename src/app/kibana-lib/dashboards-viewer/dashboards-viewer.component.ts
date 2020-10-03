@@ -74,7 +74,7 @@ export class DashboardsViewerComponent
   public extractDashboardFromUrl(): number {
     const path = this.router.parseUrl(this.location.path());
     if (path.queryParams['id']) {
-      return Number.parseInt(path.queryParams['id']);
+      return Number.parseInt(path.queryParams['id'], 10);
     }
   }
 

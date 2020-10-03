@@ -2,7 +2,7 @@ import {
   throwError as observableThrowError,
   forkJoin,
   Observable,
-  Subject,
+  Observer,
   of
 } from 'rxjs';
 
@@ -39,7 +39,8 @@ export class FormSubmissionService {
       form,
       payloadTypes
     );
-    return Observable.create((observer: Subject<any>) => {
+
+    return new Observable((observer: Observer<any>) => {
       return forkJoin(payloadBatch).subscribe(
         (responses: Array<any>) => {
           if (responses) {

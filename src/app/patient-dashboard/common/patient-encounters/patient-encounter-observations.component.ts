@@ -14,14 +14,14 @@ import {
 import { Encounter } from '../../../models/encounter.model';
 import * as _ from 'lodash';
 import { EncounterResourceService } from '../../../openmrs-api/encounter-resource.service';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalComponent } from 'ng2-bs3-modal';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'patient-encounter-observations',
   templateUrl: './patient-encounter-observations.component.html',
   styleUrls: ['./patient-encounters.component.css'],
-  entryComponents: [ModalComponent],
+  entryComponents: [BsModalComponent],
   encapsulation: ViewEncapsulation.None
 })
 export class PatientEncounterObservationsComponent
@@ -33,7 +33,7 @@ export class PatientEncounterObservationsComponent
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
   @ViewChild('modal')
-  public modal: ModalComponent;
+  public modal: BsModalComponent;
   @Input() public encounter: Encounter;
   @Input() public set prettyView(val: boolean) {
     this.pretty = val;

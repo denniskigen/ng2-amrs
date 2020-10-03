@@ -5,11 +5,11 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { format } from 'date-fns';
 import { take, map } from 'rxjs/operators';
-import { flatMap, first } from 'rxjs/operators';
+import { mergeMap, first } from 'rxjs/operators';
 import {
   forkJoin,
   Observable,
-  Subject,
+  Observer,
   Subscription,
   BehaviorSubject,
   of,
@@ -744,7 +744,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
     observableBatch.push(this.getEncounters()); // encounters [2]
     // forkjoin all requests
     this.subscription = forkJoin(observableBatch)
-      // .pipe(flatMap((data) => {
+      // .pipe(mergeMap((data) => {
       //   // now init private and public properties
       //   this.compiledSchemaWithEncounter = data[0] || null;
       //   this.patient = data[1] || null;
@@ -1035,7 +1035,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
   }
 
   private getcompiledSchemaWithEncounter(): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       this.route.data.subscribe(
         (routeData: any) => {
           observer.next(routeData.compiledSchemaWithEncounter);
@@ -1048,7 +1048,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
   }
 
   private getPatient(): Observable<Patient> {
-    return Observable.create((observer: Subject<Patient>) => {
+    return new Observable((observer: Observer<Patient>) => {
       this.patientService.currentlyLoadedPatient.subscribe(
         (patient) => {
           if (patient) {
@@ -1084,7 +1084,7 @@ export class FormentryComponent implements OnInit, OnDestroy {
   }
 
   private getEncounters(): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (this.encounterUuid && this.encounterUuid !== '') {
         this.encounterResource.getEncounterByUuid(this.encounterUuid).subscribe(
           (encounter) => {
@@ -1159,10 +1159,10 @@ export class FormentryComponent implements OnInit, OnDestroy {
   private checkDuplicate(payloadTypes) {
     this.patientService.currentlyLoadedPatientUuid
       .pipe(
-        flatMap((patientUuid: string) => {
+        mergeMap((patientUuid: string) => {
           return this.encounterResource.getEncountersByPatientUuid(patientUuid);
         }),
-        flatMap((encounters) => {
+        mergeMap((encounters) => {
           this.previousEncounters = encounters;
           if (
             this.formentryHelperService.encounterTypeFilled(

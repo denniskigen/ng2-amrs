@@ -1,8 +1,7 @@
-import { take } from 'rxjs/operators';
+import { mergeMap, take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { Observable, Subject, Subscription } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { FileUploadResourceService } from '../../../etl-api/file-upload-resource.service';
@@ -69,7 +68,7 @@ export class LocatorMapComponent implements OnInit, OnDestroy {
       this.fileUploadResourceService
         .upload(file)
         .pipe(
-          flatMap((result: any) => {
+          mergeMap((result: any) => {
             const updatePayload = {
               attributes: [
                 {

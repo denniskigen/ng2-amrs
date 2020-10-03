@@ -3,7 +3,7 @@ import { PatientResourceService } from '../../openmrs-api/patient-resource.servi
 import { Patient } from '../../models/patient.model';
 import { FakePatientResourceService } from '../../openmrs-api/fake-patient-resource';
 import { PatientService } from './patient.service';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { ProgramEnrollmentResourceService } from '../../openmrs-api/program-enrollment-resource.service';
 import { first } from 'rxjs/operators';
 import { EncounterResourceService } from '../../openmrs-api/encounter-resource.service';
@@ -16,7 +16,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 class FakePatientProgramService {
   public getCurrentlyEnrolledPatientPrograms(uuid): Observable<any> {
-    return Observable.create((observer: Subject<any[]>) => {
+    return new Observable((observer: Observer<any>) => {
       observer.next([
         {
           program: { uuid: '123' },

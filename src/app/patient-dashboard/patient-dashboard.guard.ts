@@ -12,7 +12,7 @@ import {
   CanLoad,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable, ReplaySubject, Subject, of } from 'rxjs';
+import { Observable, Observer, Subject, of } from 'rxjs';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { DynamicRoutesService } from '../shared/dynamic-route/dynamic-routes.service';
@@ -83,7 +83,7 @@ export class PatientDashboardGuard
     }
 
     // confirm with user
-    return Observable.create((observer: Subject<boolean>) => {
+    return new Observable((observer: Observer<boolean>) => {
       this.confirmationService.confirm({
         header: 'Form Changes Not Saved',
         message: 'Are you sure you want to proceed?',

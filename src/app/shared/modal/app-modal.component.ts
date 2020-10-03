@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalComponent } from 'ng2-bs3-modal';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -18,7 +18,7 @@ export class AppModalComponent implements OnInit {
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
   @ViewChild('modal')
-  public modal: ModalComponent;
+  public modal: BsModalComponent;
   @Input() public title: string;
   @Input() public set display(state) {
     if (state) {

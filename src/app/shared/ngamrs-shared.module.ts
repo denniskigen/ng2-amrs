@@ -25,7 +25,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
 import { SelectModule } from 'ngx-select';
 import { CacheService } from 'ionic-cache';
 import { DateTimePickerModule } from 'ngx-openmrs-formentry/';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalModule } from 'ng2-bs3-modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -87,11 +87,11 @@ import { KibanaVizComponent } from './kibana-viz/kibana-viz.component';
     OpenmrsApi,
     EtlApi,
     Angulartics2Module,
-    Angulartics2Module.forRoot([Angulartics2Piwik]),
+    Angulartics2Module.forRoot(),
     FormsModule,
     NgxMyDatePickerModule.forRoot(),
     RouterModule,
-    Ng2Bs3ModalModule,
+    BsModalModule,
     DateTimePickerModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
@@ -151,7 +151,7 @@ import { KibanaVizComponent } from './kibana-viz/kibana-viz.component';
     KibanaVizHostComponent,
     OpenmrsApi,
     EtlApi,
-    Ng2Bs3ModalModule,
+    BsModalModule,
     ModalModule,
     BsDropdownModule,
     TooltipModule,

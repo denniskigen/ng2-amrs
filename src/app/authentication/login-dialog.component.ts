@@ -7,13 +7,13 @@ import {
   OnInit
 } from '@angular/core';
 import { LoginComponent } from './login.component';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalComponent, BsModalBodyComponent } from 'ng2-bs3-modal';
 
 @Component({
   selector: 'login-dialog',
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.css'],
-  entryComponents: [LoginComponent, ModalComponent],
+  entryComponents: [LoginComponent, BsModalComponent],
   encapsulation: ViewEncapsulation.None
 })
 export class LoginDialogComponent implements OnInit {
@@ -22,7 +22,7 @@ export class LoginDialogComponent implements OnInit {
   @ViewChild('loginComponent') public loginComponent: LoginComponent;
 
   @ViewChild('modal')
-  public modal: ModalComponent;
+  public modal: BsModalComponent;
 
   public cssClass = 'login-dialog';
 

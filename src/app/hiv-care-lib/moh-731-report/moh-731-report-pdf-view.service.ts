@@ -1,4 +1,4 @@
-import { Observable, Subject } from 'rxjs';
+import { Observer, Observable, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as Moment from 'moment';
@@ -15,7 +15,7 @@ export class MOHReportService {
     rows: Array<any>,
     sectionDefinitions: any
   ): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (Array.isArray(rows) && rows.length > 0) {
         const pdfStructure = this.generatePdfReportObject(
           params[0],
@@ -60,7 +60,7 @@ export class MOHReportService {
     rowData: any,
     sectionDefinitions: any
   ): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (rowData) {
         const testP = [];
         const pdfStructure = this.generatePdfReportObject(

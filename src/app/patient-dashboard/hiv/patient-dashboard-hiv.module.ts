@@ -20,7 +20,7 @@ import {
 } from 'primeng/primeng';
 import { PreviousVisitComponent } from './hiv-summary/previous-visit.component';
 import { FormEntryModule } from 'ngx-openmrs-formentry';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalModule } from 'ng2-bs3-modal';
 import { OpenmrsApi } from '../../openmrs-api/openmrs-api.module';
 import { HivPatientClinicalSummaryComponent } from './patient-clinical-summaries/hiv-patient-clinical-summary.component';
 import { HivProgramSnapshotComponent } from './program-snapshot/hiv-program-snapshot.component';
@@ -48,7 +48,7 @@ import { HivSummaryResourceService } from '../../etl-api/hiv-summary-resource.se
     DialogModule,
     MessagesModule,
     SharedModule,
-    Ng2Bs3ModalModule,
+    BsModalModule,
     NgamrsSharedModule,
     OpenmrsApi,
     FormEntryModule,

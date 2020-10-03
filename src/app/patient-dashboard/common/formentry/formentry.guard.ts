@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router, CanDeactivate } from '@angular/router';
+import { CanDeactivate } from '@angular/router';
 import { ConfirmationService } from 'primeng/primeng';
 import { FormentryComponent } from './formentry.component';
-import { Observable, ReplaySubject, Subject, of } from 'rxjs';
+import { Observable, Observer, Subject, of } from 'rxjs';
 import { first } from 'rxjs/operators';
 @Injectable()
 export class FromentryGuard implements CanDeactivate<FormentryComponent> {
@@ -12,7 +12,8 @@ export class FromentryGuard implements CanDeactivate<FormentryComponent> {
     if (!component.form || !component.form.rootNode.control.dirty) {
       return of(true);
     }
-    return Observable.create((observer: Subject<boolean>) => {
+
+    return new Observable((observer: Observer<boolean>) => {
       if (component.preserveFormAsDraft) {
         component.setCurrentFormDraftedForm();
       }

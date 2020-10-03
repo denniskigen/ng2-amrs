@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators/take';
-import { Observable, Subject } from 'rxjs';
+import { Observer, Observable, Subject } from 'rxjs';
 import { Patient } from '../../../models/patient.model';
 import * as _ from 'lodash';
 import * as Moment from 'moment';
@@ -11,7 +11,7 @@ export class HivPatientClinicalSummaryService {
   public static data: object = null;
 
   public static constructPdfStructure(): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       const data: any = this.data;
       const patient: Patient = data.patient;
       this._getLogo('./assets/img/ampath.png', (letterHead) => {
@@ -1298,7 +1298,7 @@ export class HivPatientClinicalSummaryService {
   public constructor() {}
 
   public generatePdf(data: any): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (data) {
         HivPatientClinicalSummaryService.data = data;
         HivPatientClinicalSummaryService.constructPdfStructure()

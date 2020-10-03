@@ -1,9 +1,7 @@
-import { take } from 'rxjs/operators';
-
-import { map, flatMap, catchError } from 'rxjs/operators';
+import { catchError, map, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ProviderResourceService } from '../../../openmrs-api/provider-resource.service';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, Observer, BehaviorSubject, Subject } from 'rxjs';
 import { Provider } from '../../../models/provider.model';
 import { Patient } from '../../../models/patient.model';
 import { LocationResourceService } from '../../../openmrs-api/location-resource.service';
@@ -100,7 +98,7 @@ export class FormDataSourceService {
     };
     const find = (uuid: string) => {
       if (datasource.cachedOptions.length > 0) {
-        return Observable.create((observer: Subject<any>) => {
+        return new Observable((observer: Observer<any>) => {
           observer.next(datasource.cachedOptions);
         });
       }
@@ -136,7 +134,7 @@ export class FormDataSourceService {
     };
     const find = (uuid: string) => {
       if (datasource.cachedOptions.length > 0) {
-        return Observable.create((observer: Subject<any>) => {
+        return new Observable((observer: Observer<any>) => {
           observer.next(datasource.cachedOptions);
         });
       }
@@ -219,7 +217,7 @@ export class FormDataSourceService {
         })
       )
       .pipe(
-        flatMap((mappedProvider) => {
+        mergeMap((mappedProvider) => {
           providerSearchResults.next(mappedProvider);
           return providerSearchResults.asObservable();
         }),
@@ -321,7 +319,7 @@ export class FormDataSourceService {
         })
       )
       .pipe(
-        flatMap((mappedLocation) => {
+        mergeMap((mappedLocation) => {
           locationSearchResults.next(mappedLocation);
           return locationSearchResults.asObservable();
         }),

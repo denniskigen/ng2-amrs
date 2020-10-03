@@ -80,7 +80,7 @@ interface StoreType {
       useHash: true,
       enableTracing: false
     }),
-    Angulartics2Module.forRoot([Angulartics2Piwik]),
+    Angulartics2Module.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),

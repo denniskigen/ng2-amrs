@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import * as _ from 'lodash';
-import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
+import { Observer, Observable, forkJoin } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { DepartmentProgramsConfigService } from '../../etl-api/department-programs-config.service';
@@ -69,7 +69,7 @@ export class ProgramReferralStatusComponent implements OnInit {
     locationUuid: string,
     enrollmentUuid: string
   ): Observable<any> {
-    return Observable.create((observer: BehaviorSubject<any[]>) => {
+    return new Observable((observer: Observer<any>) => {
       this.patientReferralService
         .getReferredByLocation(locationUuid, enrollmentUuid)
         .subscribe(

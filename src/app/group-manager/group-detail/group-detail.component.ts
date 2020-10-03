@@ -457,12 +457,12 @@ export class GroupDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       .getCurrentlyEnrolledProgramsAndGroups(patient.uuid)
       .subscribe((results) => {
         const programsEnrolled = results[0];
-        const groupsEnrolled = results[1];
+        const groupsEnrolled: any = results[1];
         let currentGroupsEnrolled = [];
         if (groupsEnrolled) {
           currentGroupsEnrolled = _.filter(
             groupsEnrolled,
-            (group) => !group.voided
+            (group: any) => !group.voided
           );
         }
         const validation = this.communityGroupMemberService.validateMemberEnrollment(

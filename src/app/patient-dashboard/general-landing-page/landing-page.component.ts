@@ -2,7 +2,7 @@ import {
   forkJoin as observableForkJoin,
   Subscription,
   Observable,
-  Subject,
+  Observer,
   BehaviorSubject
 } from 'rxjs';
 
@@ -28,7 +28,7 @@ import { PatientReferralService } from '../../program-manager/patient-referral.s
 import { UserDefaultPropertiesService } from '../../user-default-properties/user-default-properties.service';
 import { PatientReferralResourceService } from '../../etl-api/patient-referral-resource.service';
 import { Encounter } from '../../models/encounter.model';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalComponent } from 'ng2-bs3-modal';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -43,7 +43,7 @@ export class GeneralLandingPageComponent implements OnInit, OnDestroy {
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
   @ViewChild('modal')
-  public modal: ModalComponent;
+  public modal: BsModalComponent;
   public patient: Patient = new Patient({});
   public hasError = false;
   public programsBusy = false;
@@ -173,7 +173,7 @@ export class GeneralLandingPageComponent implements OnInit, OnDestroy {
     locationUuid: string,
     enrollmentUuid: string
   ): Observable<any> {
-    return Observable.create((observer: BehaviorSubject<any[]>) => {
+    return new Observable((observer: Observer<any[]>) => {
       this.patientReferralService
         .getReferredByLocation(locationUuid, enrollmentUuid)
         .subscribe(

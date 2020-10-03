@@ -8,10 +8,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import * as jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
-import { Observable, Subject } from 'rxjs';
+import { Observer, Observable } from 'rxjs';
 import { first, take } from 'rxjs/operators';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { PDFDocumentProxy } from 'pdfjs-dist';
@@ -266,7 +264,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
       dd.pageOrientation = 'landscape';
     }
     const pdfStructure = dd;
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       // JSON stringify and parse was done to handle a potential bug in pdfMake
       const p = JSON.stringify(pdfStructure);
       const x = JSON.parse(p);

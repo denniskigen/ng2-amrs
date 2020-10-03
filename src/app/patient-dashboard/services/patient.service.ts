@@ -51,13 +51,13 @@ export class PatientService {
     // busy
     this.isBusy.next(true);
     // hit server
-    return forkJoin(
+    return forkJoin([
       this.patientResourceService.getPatientByUuid(patientUuid, false),
       this.patientProgramsService.getCurrentlyEnrolledPatientPrograms(
         patientUuid
       ),
       this.encounterResource.getEncountersByPatientUuid(patientUuid)
-    ).subscribe(
+    ]).subscribe(
       (data) => {
         const patient = data[0];
         patient.enrolledPrograms = data[1];

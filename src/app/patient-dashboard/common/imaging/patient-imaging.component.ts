@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { PatientService } from '../../services/patient.service';
 import { RadiologyImagingResourceService } from '../../../etl-api/radiology-imaging-resource.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { BsModalComponent } from 'ng2-bs3-modal';
 import { AppFeatureAnalytics } from '../../../shared/app-analytics/app-feature-analytics.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as _ from 'lodash';
@@ -48,7 +48,7 @@ export class PatientImagingComponent implements OnInit, OnDestroy {
   @ViewChild('staticModal')
   public staticModal: ModalDirective;
   @ViewChild('modal')
-  public modal: ModalComponent;
+  public modal: BsModalComponent;
   @ViewChild('staticModalCompare')
   public staticModalCompare: ModalDirective;
   public compareImages = [];

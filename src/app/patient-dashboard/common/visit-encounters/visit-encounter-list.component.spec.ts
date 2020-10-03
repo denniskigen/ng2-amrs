@@ -11,7 +11,7 @@ import { EncounterTypeFilter } from '../patient-encounters/encounter-list.compon
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderByAlphabetPipe } from './visit-encounter.component.order.pipe';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 import { PatientEncounterService } from '../patient-encounters/patient-encounters.service';
 import { EncounterResourceService } from '../../../openmrs-api/encounter-resource.service';
 import { VisitResourceService } from '../../../openmrs-api/visit-resource.service';
@@ -44,7 +44,7 @@ class MockMoh731PatientListResourceService {
 
 class FakePatientProgramService {
   public getCurrentlyEnrolledPatientPrograms(uuid): Observable<any> {
-    return Observable.create((observer: Subject<any[]>) => {
+    return new Observable((observer: Observer<any[]>) => {
       observer.next([
         {
           program: { uuid: '123' },

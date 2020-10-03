@@ -11,7 +11,7 @@ import { FormDataSourceService } from './form-data-source.service';
 import { FileUploadResourceService } from '../../../etl-api/file-upload-resource.service';
 import { Patient } from 'src/app/models/patient.model';
 
-import { flatMap, delay } from 'rxjs/operators';
+import { mergeMap, delay } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -108,7 +108,7 @@ export class PrettyEncounterViewerComponent implements OnInit {
     this.encounterResourceService
       .getEncounterByUuid(encounterUuid)
       .pipe(
-        flatMap((encounterWithObs) => {
+        mergeMap((encounterWithObs) => {
           this.patient = new Patient(encounterWithObs.patient);
           this.selectedEncounter = encounterWithObs;
           this.wireDataSources();

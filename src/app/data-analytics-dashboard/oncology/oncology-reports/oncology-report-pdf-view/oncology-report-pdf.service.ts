@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { take } from 'rxjs/operators/take';
-import { Observable, Subject, of } from 'rxjs';
+import { Observer, Observable, Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import * as _ from 'lodash';
@@ -26,7 +26,7 @@ export class OncologyReportPdfService {
     params: any,
     title: String
   ): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       this.getLogo('./assets/img/ampath.png', (letterHead) => {
         observer.next({
           pageSize: 'LETTER',
@@ -117,7 +117,7 @@ export class OncologyReportPdfService {
   ): Observable<any> {
     const aggregatedData = this.aggregateData(data, params);
     this.constructAggregateOuterLayout(data, params);
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       this.getLogo('./assets/img/ampath.png', (letterHead) => {
         observer.next({
           pageSize: 'LETTER',
@@ -449,7 +449,7 @@ export class OncologyReportPdfService {
     params: any,
     title: String
   ): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (data) {
         this.data = data;
         this.constructPdfStructure(data, params, title)
@@ -484,7 +484,7 @@ export class OncologyReportPdfService {
     params: any,
     title: String
   ): Observable<any> {
-    return Observable.create((observer: Subject<any>) => {
+    return new Observable((observer: Observer<any>) => {
       if (data) {
         this.data = data;
         this.constructAggregatePdfStructure(data, params, title)

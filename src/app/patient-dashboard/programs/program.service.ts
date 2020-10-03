@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as _ from 'lodash';
-import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { Observer, Subject, Observable } from 'rxjs';
 import { first, map, take } from 'rxjs/operators';
 
 import { Program } from '../../models/program.model';
@@ -117,7 +117,7 @@ export class ProgramService {
   }
 
   public getProgramWorkFlows(programUuid: string) {
-    return Observable.create((observer: Subject<any[]>) => {
+    return new Observable((observer: Observer<any[]>) => {
       this.programWorkFlowResourceService
         .getProgramWorkFlows(programUuid)
         .pipe(take(1))
@@ -128,7 +128,7 @@ export class ProgramService {
   }
 
   public getProgramWorkFlowStates(workflowUuid: any) {
-    return Observable.create((observer: Subject<any[]>) => {
+    return new Observable((observer: Observer<any[]>) => {
       this.programWorkFlowStateResourceService
         .getProgramWorkFlowState(workflowUuid)
         .pipe(take(1))

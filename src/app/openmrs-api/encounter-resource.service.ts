@@ -1,5 +1,5 @@
 import { of as observableOf, Observable, Subject } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
+import { map, flatMap, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AppSettingsService } from '../app-settings/app-settings.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
@@ -37,7 +37,7 @@ export class EncounterResourceService {
         params: params
       })
       .pipe(
-        flatMap((encounters: any) => {
+        mergeMap((encounters: any) => {
           if (encounters.results.length >= 500) {
             params = params.set('startIndex', '500');
             return this.http

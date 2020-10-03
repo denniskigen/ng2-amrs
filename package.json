@@ -10,6 +10,7 @@
     "test-folder": "tslint -c tslint.json",
     "test-debug": "ng test --browsers ChromeDebug",
     "lint": "ng lint",
+    "lint:fix": "tslint --fix -p .",
     "e2e": "ng e2e",
     "stats": "webpack-bundle-analyzer dist/ngx-amrs/stats.json",
     "build-prod": "node version.js && bash ./scripts/ng.sh build --prod --aot --optimization=false",
@@ -26,8 +27,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts}": [
-      "prettier --write src/app",
-      "ng lint ngx-amrs"
+      "tslint --project .",
+      "prettier --write src/app"
     ]
   },
   "private": true,
@@ -160,7 +161,7 @@
     "rxjs-tslint": "^0.1.8",
     "source-map-support": "^0.5.9",
     "ts-node": "~5.0.1",
-    "tslint": "~5.9.1",
+    "tslint": "^5.11.0",
     "typescript": "^3.1.6",
     "webpack-bundle-analyzer": "^3.8.0"
   },
